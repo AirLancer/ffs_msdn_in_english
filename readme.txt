@@ -1,0 +1,1 @@
+The icon is made by Freepik from www.flaticon.com 
