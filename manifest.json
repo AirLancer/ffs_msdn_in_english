@@ -9,8 +9,7 @@
 	},
   "permissions": [
     "activeTab", "*://msdn.microsoft.com/*", "*://*.msdn.microsoft.com/*",
-	"storage",
-	"tabs"
+  "storage"
   ],
   "background":{
 	"scripts": ["redirectToEnUs.js"],
