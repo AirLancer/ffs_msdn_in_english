@@ -15,7 +15,6 @@
     "storage"
   ],
   "background":{
-  "scripts": ["redirectToEnUs.js"],
-  "persistent": false
+  "scripts": ["redirectToEnUs.js"]
   }
 }
