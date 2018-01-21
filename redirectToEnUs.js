@@ -24,7 +24,7 @@ function redirect(requestDetails) {
 	return { redirectUrl: decTabUrl };
 }
 
-browser.webRequest.onBeforeRequest.addListener(
+chrome.webRequest.onBeforeRequest.addListener(
   redirect,
   {urls:[msdnUrls_1, msdnUrls_2]},
   ["blocking"]
