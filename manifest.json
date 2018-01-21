@@ -8,11 +8,13 @@
     "default_icon": "icon.png"
 	},
   "permissions": [
-    "activeTab", "*://msdn.microsoft.com/*", "*://*.msdn.microsoft.com/*",
-  "storage"
+    "webRequest",
+    "webRequestBlocking",
+    "*://msdn.microsoft.com/*", 
+    "*://*.msdn.microsoft.com/*",
+    "storage"
   ],
   "background":{
-	"scripts": ["redirectToEnUs.js"],
-	"persistent": false
+  "scripts": ["redirectToEnUs.js"]
   }
 }
