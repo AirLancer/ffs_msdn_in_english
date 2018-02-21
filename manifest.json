@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "FFS MSDN in English",
-  "description": "This will change the local of MSDN pages to English (en-us).",
-  "version": "1.3",
+  "description": "This will change the localisation of MSDN and/or docs.microsoft pages to English (en-us).",
+  "version": "2.0",
   "icons": {
     "16": "icon_16.png",
     "24": "icon_24.png",
@@ -17,10 +17,18 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
+    "storage",
     "*://msdn.microsoft.com/*", 
-    "*://*.msdn.microsoft.com/*"
+    "*://*.msdn.microsoft.com/*",
+    "*://docs.microsoft.com/*",
+    "*://*.docs.microsoft.com/*"
   ],
-  "background":{
+  "background": {
   "scripts": ["redirectToEnUs.js"]
-  }
+  },
+  "browser_action": {
+    "default_title": "Set Active Pages",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
 }
