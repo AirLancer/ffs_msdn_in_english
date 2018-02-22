@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="popup.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="popup.js"></script>
+    </head>
+    <body>
+        <div class="panel panel-default">
+            <div class="panel-heading">Toggle Active Pages
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    docs.microsoft
+                    <div class="material-switch pull-right">
+                        <input id="docs" name="docsOption" type="checkbox"/>
+                        <label for="docs" class="label-success"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    MSDN
+                    <div class="material-switch pull-right">
+                        <input id="msdn" name="msdnOption" type="checkbox"/>
+                        <label for="msdn" class="label-success"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
