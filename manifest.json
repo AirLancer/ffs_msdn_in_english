@@ -6,7 +6,7 @@
   "version": "2.0",
   "applications": {
     "gecko": {
-      "id": "ffs_msdn_in_english@airlancer.addons.mozilla.org",
+      "id": "{b3abf5b1-5525-4838-b84f-c152a772f3a8}",
       "strict_min_version": "42.0"
     }
   },
