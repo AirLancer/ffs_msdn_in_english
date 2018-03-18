@@ -3,7 +3,7 @@
 
   "name": "FFS MSDN in English",
   "description": "This will change the localisation of MSDN and/or docs.microsoft pages to English (en-us).",
-  "version": "2.0",
+  "version": "2.0.1",
   "applications": {
     "gecko": {
       "id": "{b3abf5b1-5525-4838-b84f-c152a772f3a8}",
@@ -45,6 +45,5 @@
       "256": "icon_256.png",
       "512": "icon_512.png"
     }
-  },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+  }
 }
