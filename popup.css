@@ -1,5 +1,5 @@
 html, body {
-    height: 122px;
+    height: 164px;
 }
 
 .panel {
@@ -10,9 +10,14 @@ html, body {
 .material-switch.pull-right{
     margin-top: 10px;
 }
+
 .list-group {
     margin-bottom: 0px;
     min-width: 200px;
+}
+
+li.list-group-item{
+    min-height: 42px;
 }
 
 .container {
