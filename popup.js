@@ -4,6 +4,7 @@ $(function () {
     setDocsCheckbox();
     setMsdnCheckbox();
     setSupportCheckbox();
+    setAzureCheckbox();
 
     $("#docs").change(function () {
         if ($(this).is(':checked')) {
@@ -24,6 +25,13 @@ $(function () {
             saveSupportValue(true);
         } else {
             saveSupportValue(false);
+        }
+    });
+    $("#azure").change(function () {
+        if ($(this).is(':checked')) {
+            saveAzureValue(true);
+        } else {
+            saveAzureValue(false);
         }
     });
 });
@@ -58,6 +66,16 @@ function setSupportCheckbox() {
     });
 }
 
+function setAzureCheckbox() {
+    chrome.storage.sync.get("azure", function (items) {
+        if (items.azure === false) {
+            $("#azure").prop('checked', false);
+        } else {
+            $("#azure").prop('checked', true);
+        }
+    });
+}
+
 function saveDocsValue(value) {
     chrome.storage.sync.set({'docs': value});
 }
@@ -67,5 +85,9 @@ function saveMsdnValue(value) {
 }
 
 function saveSupportValue(value) {
-    chrome.storage.sync.set({'support': value});
+    chrome.storage.sync.set({ 'support': value });
+}
+
+function saveAzureValue(value) {
+    chrome.storage.sync.set({ 'azure': value });
 }

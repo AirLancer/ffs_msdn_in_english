@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "FFS MSDN in English",
-  "description": "This will change the localisation of MSDN, support.microsoft and/or docs.microsoft pages to English (en-us).",
-  "version": "2.1",
+  "description": "This will change the localisation of MSDN, azure.microsoft, support.microsoft and/or docs.microsoft pages to English (en-us).",
+  "version": "2.2",
   "icons": {
     "16": "icon_16.png",
     "24": "icon_24.png",
@@ -23,7 +23,9 @@
     "*://docs.microsoft.com/*",
     "*://*.docs.microsoft.com/*",
     "*://support.microsoft.com/*",
-    "*://*.support.microsoft.com/*"
+    "*://*.support.microsoft.com/*",
+    "*://azure.microsoft.com/*",
+    "*://*.azure.microsoft.com/*"
   ],
   "background": {
   "scripts": ["redirectToEnUs.js"]
