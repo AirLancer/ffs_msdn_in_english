@@ -1,11 +1,19 @@
 "use strict";
 // Fix HTML
 $(function () {
+    setLearnCheckbox();
     setDocsCheckbox();
     setMsdnCheckbox();
     setSupportCheckbox();
     setAzureCheckbox();
 
+    $("#learn").change(function () {
+        if ($(this).is(':checked')) {
+            saveDocsValue(true);
+        } else {
+            saveDocsValue(false);
+        }
+    });
     $("#docs").change(function () {
         if ($(this).is(':checked')) {
             saveDocsValue(true);
@@ -35,6 +43,17 @@ $(function () {
         }
     });
 });
+
+
+function setLearnCheckbox() {
+    chrome.storage.sync.get("learn", function (items) {
+        if (items.learn === false) {
+            $("#learn").prop('checked', false);
+        } else {
+            $("#learn").prop('checked', true);
+        }
+    });
+}
 
 function setDocsCheckbox() {
     chrome.storage.sync.get("docs", function (items) {

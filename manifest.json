@@ -18,6 +18,8 @@
     "webRequest",
     "webRequestBlocking",
     "storage",
+    "*://learn.microsoft.com/*", 
+    "*://*.learn.microsoft.com/*",
     "*://msdn.microsoft.com/*", 
     "*://*.msdn.microsoft.com/*",
     "*://docs.microsoft.com/*",
