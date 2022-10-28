@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "FFS MSDN in English",
-  "description": "This will change the localisation of MSDN, azure.microsoft, support.microsoft and/or docs.microsoft pages to English (en-us).",
-  "version": "2.2.0",
+  "description": "This will change the localisation of MSDN, azure.microsoft, support.microsoft, learn.microsoft and/or docs.microsoft pages to English (en-us).",
+  "version": "2.3.0",
   "applications": {
     "gecko": {
       "id": "{b3abf5b1-5525-4838-b84f-c152a772f3a8}",
@@ -31,7 +31,9 @@
     "*://support.microsoft.com/*",
     "*://*.support.microsoft.com/*",
     "*://azure.microsoft.com/*",
-    "*://*.azure.microsoft.com/*"
+    "*://*.azure.microsoft.com/*",
+    "*://learn.microsoft.com/*",
+    "*://*.learn.microsoft.com/*"
   ],
   "background": {
   "scripts": ["redirectToEnUs.js"]
