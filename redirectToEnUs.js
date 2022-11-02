@@ -8,6 +8,8 @@ var supportDomain = "*://support.microsoft.com/*";
 var supportSubdomain = "*://*.support.microsoft.com/*";
 var azureDomain = "*://azure.microsoft.com/*";
 var azureSubdomain = "*://*.azure.microsoft.com/*";
+var learnDomain = "*://learn.microsoft.com/*";
+var learnSubdomain = "*://*.learn.microsoft.com/*";
 
 //// Decoded and Encoded URLs
 // msdn
@@ -30,6 +32,11 @@ var decodedEnUsAzureBaseUrl = "azure.microsoft.com/en-us";
 var encodedEnUsAzureBaseUrl = encodeURIComponent(decodedEnUsAzureBaseUrl);
 var decodedAzureBaseUrl = "azure.microsoft.com/";
 var encodedAzureBaseUrl = encodeURIComponent(decodedAzureBaseUrl);
+// learn.microsoft
+var decodedEnUsLearnBaseUrl = "learn.microsoft.com/en-us";
+var encodedEnUsLearnBaseUrl = encodeURIComponent(decodedEnUsLearnBaseUrl);
+var decodedLearnBaseUrl = "learn.microsoft.com/";
+var encodedLearnBaseUrl = encodeURIComponent(decodedLearnBaseUrl);
 
 //// Regular Expressions and Patterns
 // msdn
@@ -44,11 +51,15 @@ var supportRegEx = new RegExp(supportPattern, "i");
 // azure.microsoft
 var azurePattern = encodedAzureBaseUrl + "\\D{2}-\\D{2}";
 var azureRegEx = new RegExp(azurePattern, "i");
+// learn.microsoft
+var learnPattern = encodedLearnBaseUrl + "\\D{2}-\\D{2}";
+var learnRegEx = new RegExp(learnPattern, "i");
 
 var shouldRedirectDocs;
 var shouldRedirectMsdn;
 var shouldRedirectSupport;
 var shouldRedirectAzure;
+var shouldRedirectLearn;
 
 chrome.storage.sync.get("msdn", function (items) {
     if (items.msdn === false) {
@@ -79,6 +90,14 @@ chrome.storage.sync.get("azure", function (items) {
         shouldRedirectAzure = false;
     } else {
         shouldRedirectAzure = true;
+    }
+});
+
+chrome.storage.sync.get("learn", function (items) {
+    if (items.learn === false) {
+        shouldRedirectLearn = false;
+    } else {
+        shouldRedirectLearn = true;
     }
 });
 
@@ -137,6 +156,18 @@ function redirect(requestDetails) {
 
         return {redirectUrl: browserUrl_decoded};
     }
+    // Redirect learn.microsoft
+    if (shouldRedirectLearn && browserUrl_encoded.match(learnRegEx)) {
+        // Already in en-us?
+        if (browserUrl_encoded.includes(encodedEnUsLearnBaseUrl)) {
+            return;
+        }
+
+        browserUrl_encoded = browserUrl_encoded.replace(learnRegEx, encodedEnUsLearnBaseUrl);
+        var browserUrl_decoded = decodeURIComponent(browserUrl_encoded);
+
+        return {redirectUrl: browserUrl_decoded};
+    }
 }
 
 chrome.webRequest.onBeforeRequest.addListener(
@@ -144,7 +175,8 @@ chrome.webRequest.onBeforeRequest.addListener(
     {urls: [msdnDomain, msdnSubdomain,
             docsDomain, docsSubdomain,
             supportDomain, supportSubdomain,
-            azureDomain, azureSubdomain]},
+            azureDomain, azureSubdomain,
+            learnDomain, learnSubdomain]},
     ["blocking"]
 );
 
@@ -160,5 +192,8 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     }
     if (changes.azure !== undefined) {
         shouldRedirectAzure = changes.azure.newValue;
+    }
+    if (changes.learn !== undefined) {
+        shouldRedirectLearn = changes.learn.newValue;
     }
 });
