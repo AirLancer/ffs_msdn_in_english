@@ -2,8 +2,6 @@
 
 var msdnDomain = "*://msdn.microsoft.com/*";
 var msdnSubdomain = "*://*.msdn.microsoft.com/*";
-var docsDomain = "*://docs.microsoft.com/*";
-var docsSubdomain = "*://*.docs.microsoft.com/*";
 var supportDomain = "*://support.microsoft.com/*";
 var supportSubdomain = "*://*.support.microsoft.com/*";
 var azureDomain = "*://azure.microsoft.com/*";
@@ -17,11 +15,6 @@ var decodedEnUsMsdnBaseUrl = "msdn.microsoft.com/en-us";
 var encodedEnUsMsdnBaseUrl = encodeURIComponent(decodedEnUsMsdnBaseUrl);
 var decodedMsdnBaseUrl = "msdn.microsoft.com/";
 var encodedMsdnBaseUrl = encodeURIComponent(decodedMsdnBaseUrl);
-// docs.microsoft
-var decodedEnUsDocsBaseUrl = "docs.microsoft.com/en-us";
-var encodedEnUsDocsBaseUrl = encodeURIComponent(decodedEnUsDocsBaseUrl);
-var decodedDocsBaseUrl = "docs.microsoft.com/";
-var encodedDocsBaseUrl = encodeURIComponent(decodedDocsBaseUrl);
 // support.microsoft
 var decodedEnUsSupportBaseUrl = "support.microsoft.com/en-us";
 var encodedEnUsSupportBaseUrl = encodeURIComponent(decodedEnUsSupportBaseUrl);
@@ -42,9 +35,6 @@ var encodedLearnBaseUrl = encodeURIComponent(decodedLearnBaseUrl);
 // msdn
 var msdnPattern = encodedMsdnBaseUrl + "\\D{2}-\\D{2}";
 var msdnRegEx = new RegExp(msdnPattern, "i");
-// docs.microsoft
-var docsPattern = encodedDocsBaseUrl + "\\D{2}-\\D{2}";
-var docsRegEx = new RegExp(docsPattern, "i");
 // support.microsoft
 var supportPattern = encodedSupportBaseUrl + "\\D{2}-\\D{2}";
 var supportRegEx = new RegExp(supportPattern, "i");
@@ -55,7 +45,6 @@ var azureRegEx = new RegExp(azurePattern, "i");
 var learnPattern = encodedLearnBaseUrl + "\\D{2}-\\D{2}";
 var learnRegEx = new RegExp(learnPattern, "i");
 
-var shouldRedirectDocs;
 var shouldRedirectMsdn;
 var shouldRedirectSupport;
 var shouldRedirectAzure;
@@ -66,14 +55,6 @@ chrome.storage.sync.get("msdn", function (items) {
         shouldRedirectMsdn = false;
     } else {
         shouldRedirectMsdn = true;
-    }
-});
-
-chrome.storage.sync.get("docs", function (items) {
-    if (items.docs === false) {
-        shouldRedirectDocs = false;
-    } else {
-        shouldRedirectDocs = true;
     }
 });
 
@@ -120,18 +101,6 @@ function redirect(requestDetails) {
 
         return {redirectUrl: browserUrl_decoded};
     }
-    // Redirect docs.microsoft
-    if (shouldRedirectDocs && browserUrl_encoded.match(docsRegEx)) {
-        // Already in en-us?
-        if (browserUrl_encoded.includes(encodedEnUsDocsBaseUrl)) {
-            return;
-        }
-
-        browserUrl_encoded = browserUrl_encoded.replace(docsRegEx, encodedEnUsDocsBaseUrl);
-        var browserUrl_decoded = decodeURIComponent(browserUrl_encoded);
-
-        return {redirectUrl: browserUrl_decoded};
-    }
     // Redirect support.microsoft
     if (shouldRedirectSupport && browserUrl_encoded.match(supportRegEx)) {
         // Already in en-us?
@@ -173,7 +142,6 @@ function redirect(requestDetails) {
 chrome.webRequest.onBeforeRequest.addListener(
     redirect,
     {urls: [msdnDomain, msdnSubdomain,
-            docsDomain, docsSubdomain,
             supportDomain, supportSubdomain,
             azureDomain, azureSubdomain,
             learnDomain, learnSubdomain]},
@@ -181,9 +149,6 @@ chrome.webRequest.onBeforeRequest.addListener(
 );
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-    if (changes.docs !== undefined) {
-        shouldRedirectDocs = changes.docs.newValue;
-    }
     if (changes.msdn !== undefined) {
         shouldRedirectMsdn = changes.msdn.newValue;
     }
